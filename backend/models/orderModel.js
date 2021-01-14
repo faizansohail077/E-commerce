@@ -36,17 +36,17 @@ const orderSchema = mongoose.Schema({
 
     },
     taxPrice: {
-        type: NUmber,
+        type: Number,
         required: true,
         default: 0.0
     },
     shippingPrice: {
-        type: NUmber,
+        type: Number,
         required: true,
         default: 0.0
     },
     totalPrice: {
-        type: NUmber,
+        type: Number,
         required: true,
         default: 0.0
     },
@@ -70,6 +70,6 @@ const orderSchema = mongoose.Schema({
     }
 }, { timeStamp: true })
 
-const Order = mongoose.model('User', orderSchema)
+const Order = mongoose.model('Order', orderSchema)
 
 export default Order

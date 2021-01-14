@@ -2,22 +2,24 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { detailProduct } from '../actions/productActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 
 const ProductScreen = ({ match }) => {
-    const [product, setProduct] = useState({})
+    const dispatch = useDispatch()
+    const productDetail = useSelector(state => state.productDetails)
+    const { loading, error, product } = productDetail
     useEffect(() => {
-        const fetchProduct = async () => {
-            const { data} = await axios.get(`/api/products/${match.params.id}`)
-            setProduct(data)
-        }
-        fetchProduct()
-    },[match])
-    
+        dispatch(detailProduct(match.params.id))
+    }, [match])
+
     return (
         <>
             <Link to='/' className="btn btn-light my-3">Go back</Link>
+            {loading ? <Loader /> : error ? <Message>{error}</Message> :(
             <Row>
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid />
@@ -28,7 +30,7 @@ const ProductScreen = ({ match }) => {
                             <h3>{product.name}</h3>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                            <Rating value={product.rating} text={`${product.numReviews} reviews`} color="green" />
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <h3>Price: ${product.price}</h3>
@@ -70,6 +72,7 @@ const ProductScreen = ({ match }) => {
                     </Card>
                 </Col>
             </Row>
+            )}
         </>
     )
 }

@@ -28,7 +28,7 @@ const productSchema = mongoose.Schema({
     },
     catagory: {
         type: String,
-        required: true,
+        required: false,
     },
     description: {
         type: String,
@@ -57,6 +57,6 @@ const productSchema = mongoose.Schema({
     }
 }, { timeStamp: true })
 
- const product=mongoose.model('Product',productSchemaema)
+ const Product=mongoose.model('Product',productSchema)
 
- export default product
+ export default Product
