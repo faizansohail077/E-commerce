@@ -33,3 +33,4 @@ export const detailProduct = (id) => async (dispatch) => {
         })
     }
 }
+

@@ -24,3 +24,4 @@ export const productDetailReducer = (state = { product: { reviews: [] } }, actio
             return state
     }
 }
+
